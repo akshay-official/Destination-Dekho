@@ -1,0 +1,17 @@
+<%- include("../includes/header.ejs"); %>
+  <main>
+    <section class="container card-container">
+      <% for(let i=0; i < listings.length; i++){ %>
+        <a href="/listings/<%= listings[i]._id %>" class="card">
+          <div>
+            <img src="<%= listings[i].image %>" alt="Property Image" class="listingSpecialImage">
+            <h2>
+              <%= listings[i].title %>
+            </h2>
+            <p class="price">₹ <%= listings[i].price.toLocaleString("en-IN") %>/night</p>
+          </div>
+        </a>
+        <% } %>
+    </section>
+  </main>
+<%- include("../includes/footer.ejs"); %>

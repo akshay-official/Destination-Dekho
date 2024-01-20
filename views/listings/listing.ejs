@@ -1,0 +1,92 @@
+<%- include("../includes/header.ejs"); %>
+  <main>
+    <%let totalRating=0;%>
+      <% for(let i=0; i < data.reviews.length; i++){ %>
+        <%totalRating=totalRating + data.reviews[i].rating;%>
+          <% } %>
+            <%totalRating=totalRating / data.reviews.length%>
+              <%totalRating=Math.floor(totalRating)%>
+                <section class="listing-details">
+                  <div class="listing-image">
+                    <img src="<%= data.image %>" alt="Listing Image" class="impImg">
+                  </div>
+                  <div class="listing-info">
+                    <h2>
+                      <%= data.title %>
+                    </h2>
+                    <p class="location">
+                      <%= data.location %>, <%= data.country %>
+                    </p>
+                    <p class="price">₹ <%= data.price.toLocaleString("en-IN") %>/night</p>
+                    <div class="rating">
+                      <span>
+                        <% for(let j=1; j <=totalRating; j++){ %>⭐ <% } %>
+                      </span>
+                      <span>
+                        <%= data.reviews.length %> reviews
+                      </span>
+                    </div>
+                    <p class="description">
+                      <%= data.description %>
+                    </p>
+                    <div class="review-buttons d-flex">
+                      <% if(currUser && currUser._id.toString()===data.owner._id.toString()){ %>
+                        <form method="GET" action="/listings/<%=data._id%>/edit">
+                          <button type="submit" class="btn btn-sm btn-outline-primary me-2">Edit</button>
+                        </form>
+                        <form method="POST" action="/listings/<%=data._id%>?_method=DELETE">
+                          <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                        <% } %>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- <section class="amenities">
+        <h2>About</h2>
+        
+    </section> -->
+
+                <section class="reviews">
+                  <h2>Reviews</h2>
+                  <% for(let i=0; i < data.reviews.length; i++){ %>
+                    <div class="review-card">
+                      <div class="user-avatar">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+                          alt="User Avatar">
+                      </div>
+                      <div class="review-content">
+                        <h3>
+                          <%= data.reviews[i].createdBy.username %>
+                        </h3>
+                        <p class="rating">
+                          <% for(let j=1; j <=data.reviews[i].rating; j++){ %>⭐ <% } %>
+                        </p>
+                        <p>
+                          <%= data.reviews[i].comment %>
+                        </p>
+
+                        <div class="review-buttons d-flex">
+                          <% if(currUser && currUser._id.toString()===data.reviews[i].createdBy._id.toString()){ %>
+                            <form method="GET" action="/listings/<%=data._id%>/reviews/<%=data.reviews[i]._id%>/edit">
+                              <button type="submit" class="btn btn-sm btn-outline-primary me-2">Edit</button>
+                            </form>
+                            <form method="POST"
+                              action="/listings/<%=data._id%>/reviews/<%=data.reviews[i]._id%>?_method=DELETE">
+                              <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                            <% } %>
+                        </div>
+                      </div>
+                    </div>
+                    <% } %>
+                </section>
+                <div class="text-center mt-4">
+                  <form method="GET" action="/listings/<%= data._id %>/reviews/new">
+                    <button class="btn btn-primary your-button-class" data-toggle="modal" data-target="#addReviewModal">
+                      Add Review
+                    </button>
+                  </form>
+                </div>
+  </main>
+<%- include("../includes/footer.ejs"); %>

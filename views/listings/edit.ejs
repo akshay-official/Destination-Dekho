@@ -1,0 +1,50 @@
+<%- include("../includes/header.ejs"); %>
+  <main>
+    <body>
+      <div class="container">
+
+        <div class="py-5 text-center">
+          <h2>Modify Details</h2>
+          <form method="POST" action="/listings/<%= data._id %>?_method=PUT">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">@</span>
+              <input name="title" value="<%= data.title %>" type="text" class="form-control" placeholder="Title"
+                aria-label="Username" aria-describedby="basic-addon1" required>
+            </div>
+
+            <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon3">Upload Image</span>
+                <input name="image" value="<%= data.image %>" type="text" class="form-control" id="basic-url"
+                  aria-describedby="basic-addon3 basic-addon4" required>
+              </div>
+            </div>
+
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">₹</span>
+              <input name="price" value="<%= data.price %>" type="text" class="form-control"
+                aria-label="Amount (to the nearest dollar)" required>
+              <span class="input-group-text">/night</span>
+            </div>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon3">Country</span>
+              <input name="country" value="<%= data.country %>" type="text" class="form-control" placeholder="Country"
+                aria-label="Username" required>
+              <span class="input-group-text" id="basic-addon3">Location</span>
+              <input name="location" value="<%= data.location %>" type="text" class="form-control"
+                placeholder="Location" aria-label="Server" required>
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-text">Description</span>
+              <textarea name="description" class="form-control" aria-label="With textarea"
+                required><%= data.description %></textarea>
+            </div>
+
+            <button class="btn btn-danger my-2 specialClass">Submit</button>
+          </form>
+        </div>
+  </main>
+<%- include("../includes/footer.ejs"); %>
